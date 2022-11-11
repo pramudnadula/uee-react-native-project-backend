@@ -9,6 +9,7 @@ const cors = require("cors");
 
 const userRouter = require("./Routers/user");
 const PostRouter = require("./Routers/community");
+const EventRouter = require("./Routers/event");
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +22,7 @@ mongoose.connect(URL, (err) => {
 
 app.use("/api/user", userRouter); //user login & Registration
 app.use("/api/post", PostRouter);
+app.use("/api/event", EventRouter);
 
 //! create server with port number
 app.listen(process.env.PORT || "0.0.0.0", () => {
