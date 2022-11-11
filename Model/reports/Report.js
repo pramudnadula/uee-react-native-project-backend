@@ -7,7 +7,8 @@ const reportSchema = new mongoose.Schema({
   description: { type: String, required: true },
   image: { type: String, required: true },
   user: { type: ObjectId, ref: "User" },
-  status: { type: Boolean, default: false }
+  status: { type: Boolean, default: false },
+  date: { type: String, required: true },
 });
 
 const reportModel = mongoose.model('Report', reportSchema);
