@@ -22,13 +22,16 @@ const PostSchema = new Schema({
   img3: {
     type: String
   },
+  img4: {
+    type: String
+  },
   type: {
     type: Number
   },
   categoty: { type: String },
   comment: { type: Boolean },
   like: { type: Boolean },
-  comments: [{ type: ObjectId, ref: "comment" }],
+  comments: [{ uid: { type: ObjectId, ref: "User" }, content: { type: String } }],
   likes: [{ type: ObjectId, ref: "User" }]
 });
 
