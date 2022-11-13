@@ -10,16 +10,17 @@ exports.addEvent = async (req, res) => {
     }
 }
 
-exports.getOneEvent = async (req, res) => {
+exports.editEvent = async (req, res) => {
     try {
-        const { pid } = req.body
-        const event = await Event.findById(pid)
+        const { eid } = req.body
+        const { obj } = req.body
+        const event = await Event.findByIdAndUpdate(eid, obj)
         res.send(event)
-
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
+
 
 exports.getAllEvent = async (req, res) => {
     try {
@@ -32,20 +33,11 @@ exports.getAllEvent = async (req, res) => {
     }
 }
 
-exports.updateEvent = async (req, res) => {
-    try {
-        const { pid } = req.body.pid
-        const { newob } = req.body.newob
-        const newevent = await Event.findByIdAndUpdate({ pid, newob })
-        res.send(newevent)
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+
 
 exports.getMyEvents = async (req, res) => {
     try {
-        const { uid } = req.body.pid
+        const { uid } = req.body
         const events = await Event.find({ uid })
         res.send(events)
     } catch (error) {
@@ -53,3 +45,14 @@ exports.getMyEvents = async (req, res) => {
     }
 }
 
+
+exports.deleteEvent = async (req, res) => {
+    try {
+        const { eid } = req.body
+        await Event.findByIdAndDelete(eid)
+        res.send("success")
+
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}

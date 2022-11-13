@@ -30,6 +30,11 @@ const EventSchema = new Schema({
         type: String
     },
 
+    uid: {
+        type: ObjectId,
+        ref: "User"
+    },
+
 });
 
 const Event = mongoose.model("event", EventSchema);
