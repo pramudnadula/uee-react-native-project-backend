@@ -30,9 +30,11 @@ const marianResourcesSchema = new Schema({
     date: {
         type: Date,
         default: Date.now,
-
-
-    }
+    },
+    uid: {
+        type: ObjectId,
+        ref: "User"
+    },
 });
 
 const MarianResources = mongoose.model("MarianResources", marianResourcesSchema);
