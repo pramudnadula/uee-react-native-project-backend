@@ -34,10 +34,10 @@ exports.getAllPost = async (req, res) => {
 
 exports.updatePost = async (req, res) => {
     try {
-        const { pid } = req.body.pid
-        const { newob } = req.body.newob
-        const newpost = await Post.findByIdAndUpdate({ pid, newob })
-        res.send(newpost)
+        const pid = req.body.pid
+        const newob = req.body.newob
+        await Post.findByIdAndUpdate(pid, newob)
+        res.send("ss")
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -46,9 +46,9 @@ exports.updatePost = async (req, res) => {
 exports.getMyPosts = async (req, res) => {
     try {
         const { uid } = req.body
-        console.log(uid)
+
         const posts = await Post.find({ uid: uid })
-        console.log(posts.length)
+
         res.send(posts)
     } catch (error) {
         res.status(400).send(error.message);
@@ -105,5 +105,15 @@ exports.deletePost = async (req, res) => {
 
     } catch (error) {
         res.status(400).send(error.message);
+    }
+}
+
+exports.searchPost = async (req, res) => {
+    try {
+        const posts = await Post.find({ title: { $regex: `${req.body.title}` } });
+        if (!posts) res.status(200).json({ status: false, message: "No Data Found" });
+        res.status(200).json({ status: true, data: posts, message: "Data Fetched Successfully" });
+    } catch (err) {
+        res.status(500).json({ status: false, error: err, message: "Data Fetch Failed." });
     }
 }
